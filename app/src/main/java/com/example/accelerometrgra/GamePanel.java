@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 //import android.support.annotation.MainThread;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.view.MotionEvent;
@@ -14,20 +15,24 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
 
     private MainThread thread;
 
-    private RectPlayer player;
-    private Point playerPoint;
+    private SceneManager manager;
+
 
     public GamePanel(Context context){
         super(context);
 
         getHolder().addCallback(this);
 
+        Constants.CURRENT_CONTEXT = context;
+
         thread = new MainThread(getHolder(), this);
 
-        player = new RectPlayer(new Rect(100,100,200,200), Color.rgb(255,0,0));
-        playerPoint = new Point(150, 150);
+        manager = new SceneManager();
+
+
         setFocusable(true);
     }
+
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height){
@@ -38,6 +43,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
     @Override
     public void surfaceCreated(SurfaceHolder holder){
         thread = new MainThread(getHolder(), this);
+        Constants.INIT_TIME = System.currentTimeMillis();
         thread.setRunning(true);
         thread.start();
     }
@@ -45,7 +51,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
     @Override
     public void surfaceDestroyed(SurfaceHolder holder){
         boolean retry = true;
-        while (true){
+        while (retry){
             try{
                 thread.setRunning(false);
                 thread.join();
@@ -56,19 +62,15 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
 
     @Override
     public boolean onTouchEvent(MotionEvent event){
-        switch (event.getAction()){
-            case MotionEvent.ACTION_DOWN:
-            case MotionEvent.ACTION_MOVE:
-                playerPoint.set((int)event.getX(), (int)event.getY());
 
-        }
+        manager.receiveTouch(event);
 
         return true;
         //return super.onTouchEvent(event);
     }
 
     public void update(){
-        player.update(playerPoint);
+        manager.update();
 
     }
 
@@ -76,8 +78,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
     public void draw(Canvas canvas){
         super.draw(canvas);
 
-        canvas.drawColor(Color.WHITE);
+        manager.draw(canvas);
 
-        player.draw(canvas);
+
     }
+
+
 }
