@@ -21,6 +21,8 @@ public class MainActivity extends Activity {
         Constants.SCREEN_HEIGHT = dm.heightPixels;
         Constants.SCREEN_WIDTH = dm.widthPixels;
 
+
+
         setContentView(new GamePanel(this));
     }
 }

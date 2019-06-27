@@ -45,11 +45,11 @@ public class RectPlayer implements GameObject{
     }
     @Override
     public void draw(Canvas canvas) {
-        //Paint paint = new Paint();
-        //paint.setColor(color);
-        //canvas.drawRect(rectangle, paint);
+        Paint paint = new Paint();
+        paint.setColor(color);
+        canvas.drawRect(rectangle, paint);
 
-        animManager.draw(canvas,rectangle);
+        //animManager.draw(canvas,rectangle);
     }
 
     @Override
@@ -70,7 +70,7 @@ public class RectPlayer implements GameObject{
             state = 2;
 
 
-        animManager.playAnim(state);
+        animManager.playAnim(0);
         animManager.update();
 
     }

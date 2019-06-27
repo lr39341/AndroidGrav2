@@ -1,10 +1,12 @@
 package com.example.accelerometrgra;
 
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.view.MotionEvent;
 
 public class GameplayScene implements Scene{
@@ -23,11 +25,11 @@ public class GameplayScene implements Scene{
     private long frameTime;
 
     public GameplayScene(){
-        player = new RectPlayer(new Rect(100,100,200,200), Color.rgb(255,0,0));
+        player = new RectPlayer(new Rect(100,100,200,200), Color.rgb(255,128,0));
         playerPoint = new Point(Constants.SCREEN_WIDTH/2, 3*Constants.SCREEN_HEIGHT/4);
         player.update(playerPoint);
 
-        obstacleManager = new ObstacleManager(200, 350,75,Color.BLACK);
+        obstacleManager = new ObstacleManager(250, 500,75,Color.WHITE);
 
         orientationData = new OrientationData();
         orientationData.register();
@@ -38,7 +40,7 @@ public class GameplayScene implements Scene{
         playerPoint = new Point(Constants.SCREEN_WIDTH/2, 3*Constants.SCREEN_HEIGHT/4);
         player.update(playerPoint);
 
-        obstacleManager = new ObstacleManager(200, 350,75,Color.BLACK);
+        obstacleManager = new ObstacleManager(250, 500,75,Color.WHITE);
         movingPlayer = false;
     }
 
@@ -84,16 +86,20 @@ public class GameplayScene implements Scene{
 
     @Override
     public void draw(Canvas canvas) {
-        canvas.drawColor(Color.WHITE);
+
+        canvas.drawColor(Color.BLACK);
+
+
 
         player.draw(canvas);
         obstacleManager.draw(canvas);
 
+
         if(gameOver){
             Paint paint = new Paint();
-            paint.setTextSize(100);
-            paint.setColor(Color.MAGENTA);
-            drawCenterText(canvas, paint, "GAME OVER");
+            paint.setTextSize(48);
+            paint.setColor(Color.rgb(255,128,0));
+            drawCenterText(canvas, paint, "Kliknij by rozpocząć ponownie!");
         }
     }
 
@@ -109,7 +115,7 @@ public class GameplayScene implements Scene{
             case MotionEvent.ACTION_DOWN:
                 if(!gameOver && player.getRectangle().contains((int)event.getX(), (int)event.getY()))
                     movingPlayer = true;
-                if(gameOver && System.currentTimeMillis() - gameOverTime >= 2000){
+                if(gameOver && System.currentTimeMillis() - gameOverTime >= 1500){
                     reset();
                     gameOver = false;
                     orientationData.newGame();
