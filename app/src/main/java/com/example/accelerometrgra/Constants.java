@@ -1,7 +1,9 @@
 package com.example.accelerometrgra;
 
 import android.content.Context;
-
+/**  Klasa zawierająca wartości stałe w projekcie.
+ *
+ */
 public class Constants {
     public static int SCREEN_WIDTH;
     public static int SCREEN_HEIGHT;

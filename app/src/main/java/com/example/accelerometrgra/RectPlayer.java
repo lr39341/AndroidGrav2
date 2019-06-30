@@ -7,11 +7,13 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
-
+/**  Klasa reprezentująca postać gracza
+ *
+ */
 public class RectPlayer implements GameObject{
 
-    private Rect rectangle;
-    private int color;
+    private Rect rectangle; /**< Obiekt klasy prostokat*/
+    private int color;/**< Kolor*/
 
     private Animation idle;
     private Animation walkRight;
@@ -22,6 +24,8 @@ public class RectPlayer implements GameObject{
         return rectangle;
     }
 
+    /** \brief Funkcja dodajaca animacje obiektu gracza (nie zaimplementowana)
+     */
     public RectPlayer(Rect rectangle, int color){
         this.rectangle = rectangle;
         this.color = color;
@@ -58,6 +62,8 @@ public class RectPlayer implements GameObject{
         animManager.update();
     }
 
+    /** \brief Funkcja sprawdzajaca kierunek przesuniecia gracza (nie zaimplementowana)
+     */
     public void update(Point point){
         float oldLeft = rectangle.left;
 

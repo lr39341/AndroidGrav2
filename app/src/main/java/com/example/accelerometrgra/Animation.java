@@ -4,7 +4,9 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
-
+/**  Klasa odtwarzajaca animacje (nie zaimplementowana)
+ *
+ */
 public class Animation {
     private Bitmap[] frames;
     private int frameIndex;

@@ -2,25 +2,31 @@ package com.example.accelerometrgra;
 
 import android.graphics.Canvas;
 import android.view.SurfaceHolder;
-
+/**  Klasa będąca głównym wątkiem i pętlą gry.
+ *
+ */
 public class MainThread extends Thread{
-    public static final int MAX_FPS = 30;
-    private double averageFPS;
-    private SurfaceHolder surfaceHolder;
-    private GamePanel gamePanel;
-    private boolean running;
-    private static Canvas canvas;
+    public static final int MAX_FPS = 30;/**< Maksymalna ilosc FPS w grze*/
+    private double averageFPS;/**< Zmienna do wyliczania FPS generowanego przez urzadzenie*/
+    private SurfaceHolder surfaceHolder; /**< Interfejs powierzchni ekranu umozliwiajacy edycje*/
+    private GamePanel gamePanel; /**< Obiekt klasy GamePanel*/
+    private boolean running; /**< Zmienna przechowuje informacje czy program jest uruchomiony*/
+    private static Canvas canvas; /**< Plotno do rysowania elementow na ekranie*/
 
+    /** \brief Funkcja ustawiajaca zmienna running na true przy uruchomieniu
+     */
     public void setRunning(boolean running){
         this.running = running;
     }
-
+    /** \brief Funkcja uruchamiajaca MainThread
+     */
     public MainThread(SurfaceHolder surfaceHolder, GamePanel gamePanel){
         super();
         this.surfaceHolder = surfaceHolder;
         this.gamePanel = gamePanel;
     }
-
+    /** \brief Funkcja pętli gry, do rozpoczecia rysowania.
+     */
     @Override
     public void run(){
         long startTime;

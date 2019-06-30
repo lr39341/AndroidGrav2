@@ -5,19 +5,28 @@ import android.graphics.Color;
 import android.graphics.Paint;
 
 import java.util.ArrayList;
-
+/**  Klasa zarzadzająca wszystkimi przeszkodami wygenerowanymi podczas gry.
+ *
+ */
 public class ObstacleManager {
-    private ArrayList<Obstacle> obstacles;
-    private int playerGap;
-    private int obstacleGap;
-    private int obstacleHeight;
-    private int color;
+    private ArrayList<Obstacle> obstacles; /**< Lista wszystkich przeszkod*/
+    private int playerGap; /**< Luka miedzy przeszkodami*/
+    private int obstacleGap; /**< Odstep pomiedzy kolejnymi przeszkodami*/
+    private int obstacleHeight; /**< Wysokosc pojedynczej przeszkody*/
+    private int color; /**< Kolor*/
 
-    private long startTime;
-    private long initTime;
+    private long startTime; /**< Czas poczatkowy*/
+    private long initTime; /**< Czas gry*/
 
-    private int score = 0;
+    private int score = 0; /**< Zdobyte punkty*/
 
+    /** \brief Konstruktor parametryczny tworzący tablice przeszkod
+     *
+     * @param playerGap Luka miedzy przeszkodami
+     * @param obstacleGap Odstep pomiedzy kolejnymi przeszkodami
+     * @param obstacleHeight Wysokosc pojedynczej przeszkody
+     * @param color Kolor
+     */
     public ObstacleManager(int playerGap, int obstacleGap, int obstacleHeight, int color){
         this.playerGap = playerGap;
         this.obstacleGap = obstacleGap;
@@ -33,7 +42,8 @@ public class ObstacleManager {
         populateObstacles();
 
     }
-
+    /** \brief Funkcja sprawdzajaca kolizje gracza z przeszkoda
+     */
     public boolean playerCollide(RectPlayer player){
         for(Obstacle ob : obstacles){
             if(ob.playerCollide(player))
@@ -41,7 +51,8 @@ public class ObstacleManager {
         }
         return false;
     }
-
+    /** \brief Funkcja wypelniajaca tablice przeszkodami
+     */
     private void populateObstacles(){
         int currY = -5*Constants.SCREEN_HEIGHT/4;
         while (currY < 0){
@@ -50,7 +61,8 @@ public class ObstacleManager {
             currY += obstacleHeight + obstacleGap;
         }
     }
-
+    /** \brief Funkcja aktualizujaca przeszkody. Tworzy nowe i usuwa stare. Dodawanie punktow. Przyspieszanie przesuwania przeszkow wraz z czasem dzialania gry.
+     */
     public void update(){
         if(startTime < Constants.INIT_TIME)
             startTime = Constants.INIT_TIME;
@@ -69,7 +81,8 @@ public class ObstacleManager {
         }
 
     }
-
+    /** \brief Funkcja rysujaca przeszkody i wynik gracza.
+     */
     public void draw(Canvas canvas){
         for(Obstacle ob : obstacles)
             ob.draw(canvas);

@@ -6,9 +6,12 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Window;
 import android.view.WindowManager;
-
+/**  Klasa MainActivity ustawiajaca widok startowy.
+ *
+ */
 public class MainActivity extends Activity {
-
+    /** \brief Funkcja OnCreate. Przy uruchomieniu aplikacji ustawia tryb pelnoekranowy aplikacji
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

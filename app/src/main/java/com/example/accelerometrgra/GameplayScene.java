@@ -8,22 +8,27 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.view.MotionEvent;
-
+/**  Klasa reprezentująca scenę z grą. Zawiera logikę i rysowanie obiektów.
+ *
+ */
 public class GameplayScene implements Scene{
 
-    private Rect r = new Rect();
+    private Rect r = new Rect(); /**< Obiekt rectangle do wypisywania tekstu */
 
-    private RectPlayer player;
-    private Point playerPoint;
-    private ObstacleManager obstacleManager;
+    private RectPlayer player; /**< Obiekt gracza*/
+    private Point playerPoint; /**< Wspolrzedna gracza na ekranie*/
+    private ObstacleManager obstacleManager; /**< Obiekt menadzera przeszkod*/
 
-    private boolean movingPlayer = false;
-    private boolean gameOver = false;
-    private long gameOverTime;
+    private boolean movingPlayer = false; /**< Zmienna okreslajaca mozliwosc poruszania sie gracza*/
+    private boolean gameOver = false; /**< Zmienna okreslajaca koniec gry*/
+    private long gameOverTime; /**< Zmienna okreslajaca czas ile gra jest w stanie konca gry.*/
 
-    private OrientationData orientationData;
-    private long frameTime;
+    private OrientationData orientationData; /**< Obiekt okreslajacy orientacje telefonu*/
+    private long frameTime; /**< Zmienna do okreslenia czasu jednej klatki*/
 
+    /** \brief Konstruktor budujacy scene.
+     *
+     */
     public GameplayScene(){
         player = new RectPlayer(new Rect(100,100,200,200), Color.rgb(255,128,0));
         playerPoint = new Point(Constants.SCREEN_WIDTH/2, 3*Constants.SCREEN_HEIGHT/4);
@@ -35,7 +40,8 @@ public class GameplayScene implements Scene{
         orientationData.register();
         frameTime = System.currentTimeMillis();
     }
-
+    /** \brief Funkcja resetujaca gre podczas rozpoczecia ponownej gry
+     */
     public void reset(){
         playerPoint = new Point(Constants.SCREEN_WIDTH/2, 3*Constants.SCREEN_HEIGHT/4);
         player.update(playerPoint);
@@ -44,7 +50,8 @@ public class GameplayScene implements Scene{
         movingPlayer = false;
     }
 
-
+    /** \brief Funkcja sprawdza kolizje gracza z przeszkodami, sprawdza czy jest koniec gry i aktualizuje pozycje gracza za pomoca odczytow z akcelerometru.
+     */
     @Override
     public void update() {
 
@@ -83,7 +90,8 @@ public class GameplayScene implements Scene{
             }
         }
     }
-
+    /** \brief Funkcja rysuje tlo, gracza, przeszkody i napis konca gry.
+     */
     @Override
     public void draw(Canvas canvas) {
 
@@ -108,7 +116,8 @@ public class GameplayScene implements Scene{
         SceneManager.ACTIVE_SCENE = 0;
 
     }
-
+    /** \brief Funkcja sczytuje dotkniecie gracza po koncu gry by rozpoczac ponownie
+     */
     @Override
     public void receiveTouch(MotionEvent event) {
         switch (event.getAction()){
@@ -131,7 +140,8 @@ public class GameplayScene implements Scene{
 
         }
     }
-
+    /** \brief Funkcja do wyznaczania srodka ekranu i wypisania tekstu
+     */
     private void drawCenterText(Canvas canvas, Paint paint, String text) {
         paint.setTextAlign(Paint.Align.LEFT);
         canvas.getClipBounds(r);

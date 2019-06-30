@@ -2,7 +2,9 @@ package com.example.accelerometrgra;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;
-
+/**  Klasa zarzadzajaca animacjami w projekcie (nie zaimplementowane)
+ *
+ */
 public class AnimationManager {
     private Animation[] animations;
     private  int animationIndex = 0;
